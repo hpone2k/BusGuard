@@ -1,0 +1,3 @@
+# Optional local CPU posture analysis. No changes to PyTorch/CUDA are required.
+mediapipe==0.10.35
+opencv-contrib-python==5.0.0.93

@@ -1,0 +1,7 @@
+# Optional backends: install into a separate environment to avoid changing the tested YOLOE environment.
+-r requirements-base.txt
+transformers==4.57.1
+accelerate>=1.10,<2
+bitsandbytes>=0.46,<1
+timm>=1.0,<2
+peft>=0.17,<1

@@ -1,0 +1,144 @@
+/* Small transit diagram: stop order is schematic, never a geographic map. */
+.route-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(210px, 1fr) minmax(320px, 410px);
+  grid-template-rows: auto auto auto 1fr;
+  column-gap: 28px;
+  align-items: start;
+  margin: 0;
+  padding: 18px 24px;
+  border: 1px solid #2f3a32;
+  border-radius: 22px;
+  background: #181e1b;
+  color: #f1f4eb;
+  box-shadow: 0 8px 24px #18291d0b;
+  overflow: hidden;
+}
+.route-seat-availability {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  padding-bottom: 11px;
+  margin-bottom: 11px;
+  border-bottom: 1px solid #354036;
+  font-size: .7rem;
+  color: #c8d6bd;
+}
+.route-seat-label { margin-right: auto; color: #aebda4; }
+.route-seat-count { display: inline-flex; align-items: baseline; gap: 7px; white-space: nowrap; }
+.route-seat-count strong { font-size: .92rem; line-height: 1; font-weight: 650; font-variant-numeric: tabular-nums; color: #d4edb0; }
+.route-heading {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+}
+.route-card .eyebrow { color: #a9bb9e; font-size: .58rem; letter-spacing: .12em; }
+.route-heading h2 { margin: 4px 0 0; color: #f1f4eb; font-size: 1.02rem; line-height: 1.25; letter-spacing: -.025em; }
+.route-card .demo-pill {
+  flex-shrink: 0;
+  padding: 5px 7px;
+  border: 1px solid #45553c;
+  border-radius: 20px;
+  background: #293323;
+  color: #cfddb9;
+  font-size: .48rem;
+  font-weight: 600;
+  letter-spacing: .055em;
+}
+.route-status {
+  grid-column: 1;
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 9px 0 0;
+  color: #e6eedb;
+  font-size: .78rem;
+  line-height: 1.35;
+}
+.route-status .small-dot { flex-shrink: 0; background: #b9d892; box-shadow: 0 0 0 3px #b9d89212; }
+.route-detail {
+  grid-column: 1;
+  grid-row: 4;
+  margin: 6px 0 0;
+  color: #b8c6ad;
+  font-size: .68rem;
+  line-height: 1.5;
+}
+.route-map {
+  grid-column: 2;
+  grid-row: 2 / 5;
+  align-self: center;
+  display: block;
+  width: 100%;
+  max-width: 410px;
+  height: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: none;
+  stroke: none;
+}
+#routeLine { fill: none; stroke: #728768; stroke-width: 4; stroke-linecap: round; }
+#routeStations circle { fill: #181e1b; stroke: #b9d892; stroke-width: 2; }
+#routeStations text { fill: #e4eed7; font-size: 13px; font-weight: 650; }
+#routeStations .station-name { fill: #d2dfc4; font-size: 18px; font-weight: 550; stroke: none; }
+#routeStations .is-yours circle { stroke: #e7c790; stroke-width: 3.5; }
+#routeStations .is-current circle { fill: #b9d892; stroke: #b9d892; }
+#routeStations .is-current text:not(.station-name) { fill: #182319; }
+/* The marker updates only when live data changes; it never animates. */
+#routeBus, #routeBus * { animation: none !important; transition: none !important; }
+#routeBus .route-bus-shadow { fill: #05080670; }
+#routeBus .route-bus-body { fill: #abc982; stroke: #dcebc5; stroke-width: 1.2; }
+#routeBus .route-bus-roof { fill: #d9e8ba; stroke: #dcebc5; stroke-width: 1; }
+#routeBus .route-bus-window { fill: #253b31; stroke: #d3e8b8; stroke-width: .6; }
+#routeBus .route-bus-glint { fill: #a6c9a0; opacity: .7; }
+#routeBus .route-bus-stripe { fill: #e3efcb; stroke: none; }
+#routeBus .route-bus-lamp { fill: #fff1ad; stroke: #617448; stroke-width: .6; }
+#routeBus .route-bus-bumper { stroke: #49613f; stroke-width: 2; fill: none; stroke-linecap: round; }
+#routeBus .route-bus-wheel { fill: #172a20; stroke: #dfecbd; stroke-width: 1; }
+#routeBus .route-bus-hub { fill: #b1cb88; stroke: none; }
+#routeBus .route-wheel-spoke { stroke: #4c7045; stroke-width: 1.25; }
+.route-map[data-wrapping="true"] #routeBus { visibility: hidden; }
+/* Equivalent stop/status text stays available to assistive technology. */
+.route-stop-list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 700px) {
+  .route-card {
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    column-gap: 12px;
+    row-gap: 0;
+    padding: 16px 18px 15px;
+    border-radius: 19px;
+  }
+  .route-heading { grid-column: 1; grid-row: 2; gap: 7px; }
+  .route-heading h2 { margin: 0; font-size: .91rem; }
+  .route-heading .eyebrow, .route-card .demo-pill { display: none; }
+  .route-status { grid-column: 2; grid-row: 2; justify-self: end; margin: 1px 0 0; font-size: .73rem; text-align: right; gap: 6px; }
+  .route-status .small-dot { width: 5px; height: 5px; }
+  .route-map { grid-column: 1 / -1; grid-row: 3; justify-self: center; width: 100%; max-width: 410px; margin: 2px 0 -3px; }
+  .route-detail { grid-column: 1 / -1; grid-row: 4; margin: 0; font-size: .68rem; line-height: 1.4; }
+}
+html.high-contrast .route-card { border-color: #b9d892; background: #101612; }
+html.high-contrast .route-card .eyebrow, html.high-contrast .route-detail { color: #d4e4c4; }
+html.high-contrast #routeStations .station-name { fill: #edf6e2; }

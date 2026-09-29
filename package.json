@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "build:bus": "esbuild static/bus/src/app.js --bundle --format=esm --minify --legal-comments=linked --outfile=static/bus/bus.bundle.js"
+  },
+  "dependencies": {
+    "three": "0.186.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#d6ebcc">
+  <meta name="description" content="Request boarding and alighting assistance with BusTech. A connected, accessible local bus demonstration.">
+  <title>BusGuard — Your journey, your pace</title>
+  <link rel="stylesheet" href="/static/passenger/style.css?v=single-choice-3"><link rel="stylesheet" href="/static/passenger/voice.css?v=wake-standby-3"><link rel="stylesheet" href="/static/passenger/route.css?v=route-seats-5"><script type="module" src="/static/passenger/app.js?v=voice-finish-first-1-standing-five-1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#journey">Skip to assistance request</a>
+  <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="16" rx="4"/><path d="M4 12h16M8 19v2m8-2v2M8 7h8M8 15h.01M16 15h.01"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-ramp" viewBox="0 0 24 24"><circle cx="10" cy="4" r="1.5"/><path d="M10 8v6h6l3 6M10 10h5M7 11a5 5 0 1 0 7 7M3 22h18"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 4-6 5H2v6h3l6 5zM15 8a6 6 0 0 1 0 8m3-12a11 11 0 0 1 0 16"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-seat" viewBox="0 0 24 24"><path d="M7 4v9h11v4H7a3 3 0 0 1-3-3V4zM8 17v4m9-4v4M10 10h6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="currentColor"/><circle cx="15" cy="17" r="3" fill="currentColor"/></symbol>
+    <symbol id="i-access" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="m4 8 8 2 8-2M12 10v5m0 0-4 6m4-6 4 6"/></symbol>
+  </defs></svg>
+
+  <div class="page-shell">
+    <header class="masthead">
+      <a class="brand" href="./" aria-label="BusGuard passenger home"><span class="brand-mark"><svg><use href="#i-bus"/></svg></span><span>BusGuard<span class="brand-caption">YOUR PASSENGER COMPANION</span></span></a>
+      <div class="header-actions"><span class="connection" id="connection" data-state="connecting"><i></i><span>Connecting to the bus</span></span><button class="voice-indicator" id="voiceIndicator" type="button" hidden><span class="small-dot"></span><span id="voiceIndicatorLabel">Voice on · Stop</span></button><button class="access-button" id="openSettings" aria-label="Passenger settings" aria-haspopup="dialog" aria-controls="settingsDialog"><svg><use href="#i-settings"/></svg><span>Settings</span></button></div>
+    </header>
+    <section id="voiceStatusBar" class="voice-status-bar" aria-label="Voice assistant status">
+      <span class="voice-status-symbol" aria-hidden="true"><svg><use href="#i-sound"/></svg></span>
+      <div><strong>Hey BusGuard</strong><p id="voiceStatusText" role="status">Checking voice access…</p><p class="speech-status" id="speechStatus" role="status"></p></div>
+      <div class="voice-status-actions"><button id="startVoice" type="button" hidden>Start listening</button><a id="voiceSecureLink" href="/setup" hidden>Open secure voice site</a><a id="voiceSetupLink" class="voice-help-link" href="/setup" hidden>Phone setup</a></div>
+    </section>
+
+    <main class="journey-layout">
+        <section class="route-card" aria-labelledby="routeHeading">
+          <div class="route-seat-availability" role="group" aria-label="Available seats"><span class="route-seat-label">Seats available</span><span class="route-seat-count">Priority <strong id="routePriorityAvailable">—</strong></span><span class="route-seat-count">Standard <strong id="routeStandardAvailable">—</strong></span></div>
+          <div class="route-heading"><div><p class="eyebrow">BUSGUARD / ROUTE 01</p><h2 id="routeHeading">Your route</h2></div><span class="demo-pill">DEMO ROUTE</span></div>
+          <div class="route-status"><span class="small-dot"></span><strong id="routeTitle">Checking the route</strong></div>
+          <svg id="routeMap" class="route-map" viewBox="0 0 520 132" role="img" aria-label="Simulated five-stop bus route. Waiting for the server.">
+            <polyline id="routeLine" points=""/><g id="routeStations"></g>
+            <g id="routeBus" visibility="hidden"><ellipse class="route-bus-shadow" cy="18" rx="27" ry="3"/><g class="route-bus-coach"><rect class="route-bus-roof" x="-22" y="-23" width="40" height="5" rx="2"/><rect class="route-bus-body" x="-28" y="-19" width="56" height="32" rx="8"/><path class="route-bus-stripe" d="M-27 3h54v5h-54z"/><rect class="route-bus-window" x="-23" y="-14" width="12" height="13" rx="2"/><rect class="route-bus-window" x="-8" y="-14" width="12" height="13" rx="2"/><rect class="route-bus-window" x="8" y="-14" width="14" height="23" rx="2"/><path class="route-bus-glint" d="m-21-12 8 0-8 8zm31 0h7l-7 8z"/><rect class="route-bus-lamp" x="24" y="1" width="3" height="4" rx="1"/><path class="route-bus-bumper" d="M-28 10h4m47 0h5"/></g><g transform="translate(-16 12)"><g class="route-wheel"><circle class="route-bus-wheel" r="5"/><circle class="route-bus-hub" r="2.6"/><path class="route-wheel-spoke" d="M-2 0h4M0-2v4"/></g></g><g transform="translate(17 12)"><g class="route-wheel"><circle class="route-bus-wheel" r="5"/><circle class="route-bus-hub" r="2.6"/><path class="route-wheel-spoke" d="M-2 0h4M0-2v4"/></g></g></g>
+          </svg>
+          <p id="routeDetail" class="route-detail">The bus location comes from the shared demo controller.</p>
+          <div id="reminderStatus" class="reminder-status" hidden><span id="reminderLabel"></span><button id="cancelReminder" type="button" aria-label="Cancel arrival reminder">Cancel</button></div>
+          <ol id="routeStopList" class="route-stop-list" aria-label="Stops in route order"></ol>
+        </section>
+      <section class="request-card" id="journey" aria-labelledby="requestHeading" tabindex="-1">
+        <div class="command-heading"><div class="card-heading"><p class="eyebrow">YOUR JOURNEY, YOUR PACE</p><h1 id="requestHeading">How can we help?</h1><p>Select the support you need.</p></div><img class="bus-image" src="/static/passenger/bus-image.svg" alt="Green BusGuard bus" width="290" height="135"></div>
+        <form id="requestForm">
+          <div class="command-choices">
+          <fieldset class="journey-toggle"><legend class="sr-only">When do you need assistance?</legend><label><input type="radio" name="journey" value="boarding" checked><span>Board the bus <svg><use href="#i-arrow"/></svg></span></label><label><input type="radio" name="journey" value="alighting"><span>Leave the bus <svg><use href="#i-arrow"/></svg></span></label></fieldset>
+          <fieldset class="needs-fieldset"><legend>What would help?<span>Choose one option per request</span></legend><div id="needChoices" class="needs-grid"></div></fieldset>
+          </div>
+          <div class="request-details">
+          <div class="request-location">
+            <label class="stop-label" for="stop">Your assistance stop</label><div class="select-wrap"><svg><use href="#i-pin"/></svg><select id="stop" name="stop" required disabled><option value="">Connecting to the bus…</option></select></div>
+          <div class="location-strip"><svg><use href="#i-pin"/></svg><div><small>YOUR LOCATION · DEMO</small><strong id="locationSummary">Away from all stops</strong></div></div>
+
+          </div>
+          <div class="form-notice" id="formNotice" role="alert" hidden></div>
+          <p class="boarding-notice" id="boardingNotice" role="status" hidden></p>
+          <button class="primary-button" id="sendRequest" type="submit" disabled><span>Request assistance</span><svg><use href="#i-arrow"/></svg></button>
+          <p class="privacy-note"><svg><use href="#i-check"/></svg>No account needed. Just the support you need.</p>
+          </div>
+        </form>
+        <section id="requestStatus" hidden aria-labelledby="statusHeading">
+          <div class="status-topline"><span class="eyebrow">YOUR REQUEST</span><span class="status-reference" id="requestReference"></span></div>
+          <div class="status-symbol" id="statusSymbol"><svg><use href="#i-bus"/></svg><span class="status-halo"></span></div>
+          <h2 id="statusHeading" tabindex="-1">Checking your request</h2>
+          <p id="statusMessage" class="status-message">Getting the latest update from the bus.</p>
+          <div id="requestCountdown" class="request-countdown" hidden aria-labelledby="requestTimerLabel">
+            <div class="request-countdown-top"><span id="requestTimerLabel">Your assistance time</span><strong id="requestTimerValue" role="timer" aria-live="off">—</strong></div>
+            <div class="request-countdown-track" aria-hidden="true"><span id="requestTimerBar"></span></div>
+            <p id="requestTimerDetail"></p>
+          </div>
+          <div class="request-summary"><div><svg><use href="#i-pin"/></svg><span id="journeySummary"></span></div><div class="request-needs" id="requestNeeds"></div></div>
+          <ol class="progress-list" id="progress"><li><i>1</i><span>Request received</span></li><li><i>2</i><span>Assistance being prepared</span></li><li><i>3</i><span>Board or leave at your pace</span></li><li><i>4</i><span>Journey assistance complete</span></li></ol>
+          <div class="status-note" id="statusNote"><span class="small-dot"></span><span>Updates arrive automatically</span></div>
+          <div class="form-notice" id="statusNotice" role="alert" hidden></div>
+          <button class="primary-button" id="completeRequest" hidden><span>I have boarded the bus</span><svg><use href="#i-check"/></svg></button>
+          <button class="primary-button" id="newRequest" hidden><span>Request more assistance</span><svg><use href="#i-arrow"/></svg></button>
+          <button class="text-button" id="cancelRequest" hidden>Cancel this request</button>
+          <button class="text-button" id="replayAudio" hidden><svg><use href="#i-sound"/></svg> Read this update aloud</button>
+        </section>
+      </section>
+        <section class="live-journey" id="liveJourney" data-phase="unavailable" aria-labelledby="liveJourneyTitle">
+          <div class="live-journey-heading"><div><p class="eyebrow">YOUR BUS, RIGHT NOW</p><h2 id="liveJourneyTitle">Checking the bus</h2></div><div class="journey-clock"><strong id="journeyTimer">—</strong><span id="journeyTimerLabel">Journey status</span></div></div>
+          <p id="liveJourneyDetail">Waiting for current journey information.</p>
+          <div class="available-seats" aria-label="Available seats"><div><strong id="priorityAvailable">—</strong><span>Priority <small>of 6 seats</small></span></div><div><strong id="standardAvailable">—</strong><span>Standard <small>of 20 seats</small></span></div></div>
+          <p class="seat-summary" id="seatsRemaining">Seat availability unavailable</p>
+          <details class="seat-details"><summary>About these seats</summary><p class="seat-ledger-note" id="seatLedgerNote">Seat counts appear when the scenario starts.</p></details>
+        </section>
+    </main>
+
+    <footer class="page-footer"><span><span class="small-dot"></span> Local demonstration · simulated doors and ramp</span><span id="serviceName">BusTech Demo</span></footer>
+  </div>
+
+  <dialog id="settingsDialog" aria-labelledby="settingsHeading">
+    <div class="dialog-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h2 id="settingsHeading">Features &amp; settings</h2></div><button class="close-button" id="closeSettings" aria-label="Close settings" type="button">×</button></div>
+    <section id="voiceAssistant" aria-label="BusGuard voice assistant"></section>
+    <section class="settings-section" aria-labelledby="alertsHeading"><h3 id="alertsHeading">Arrival alerts</h3><p class="settings-description">Get a message when the bus reaches your stop.</p>
+          <p id="reminderNote" class="route-support">Ask “Hey BusGuard, remind me when the bus reaches Stop A”, or choose a stop below.</p>
+          <div class="reminder-controls"><label class="sr-only" for="reminderStop">Remind me at</label><select id="reminderStop"><option>Connecting…</option></select><button id="setReminder" type="button" disabled>Remind me</button></div>
+          <div class="arrival-controls"><button id="enableArrivalAlerts" type="button" aria-pressed="false">Enable arrival alerts</button><button id="testArrivalAlerts" class="text-button" type="button">Test alert</button></div>
+          <label class="setting"><span><strong>Vibrate on arrival</strong><small>Vibrate for your stop and requested reminders, where supported</small></span><input id="arrivalVibration" type="checkbox" role="switch"></label>
+          <p class="route-support" id="arrivalCapability">Keep this page open for arrival updates.</p>
+
+      <button id="enableNotifications" class="text-button" type="button" hidden>Enable system notifications</button><p id="notificationStatus" class="route-support" role="status"></p>
+    </section>
+    <section class="settings-section demo-location-setting" aria-labelledby="locationHeading"><h3 id="locationHeading">Your demo location</h3><label class="sr-only" for="demoLocation">Your location in this demonstration</label><div class="select-wrap"><svg><use href="#i-pin"/></svg><select id="demoLocation"><option value="away">Away from all stops</option></select></div><p>Select a stop for boarding, or “On the bus” for alighting. Requests open when the bus reaches your chosen stop. This is a demonstration, not GPS.</p></section>
+    <section class="settings-section" aria-labelledby="accessibilityHeading"><h3 id="accessibilityHeading">Make yourself comfortable</h3>
+      <label class="setting"><span><strong>Read updates aloud</strong><small>Spoken guidance alongside on-screen messages</small></span><input id="audioSetting" type="checkbox" role="switch"></label>
+      <label class="setting"><span><strong>Larger text</strong><small>More room to read comfortably</small></span><input id="largeText" type="checkbox" role="switch"></label>
+      <label class="setting"><span><strong>High contrast</strong><small>Stronger colours and clearer edges</small></span><input id="highContrast" type="checkbox" role="switch"></label>
+      <label class="setting"><span><strong>Reduce motion</strong><small>Turn off interface transitions</small></span><input id="reduceMotion" type="checkbox" role="switch"></label>
+    </section>
+    <details class="settings-information"><summary>Boarding information</summary><p class="request-timing-note">Request when the bus reaches your stop. Boarding time renews with accepted activity, up to 50 seconds total. Follow the live countdown and bus announcements, then confirm when you have boarded or left.</p></details>
+    <p class="settings-note">Preferences stay on this browser. Keep the page open for arrival alerts. iPhone Safari uses visual and spoken alerts; vibration is unavailable.</p><button class="primary-button" id="doneSettings" type="button">Done</button>
+  </dialog>
+  <aside id="arrivalPopup" class="arrival-popup" aria-labelledby="arrivalTitle" hidden><span class="arrival-icon"><svg><use href="#i-bus"/></svg></span><div><p class="eyebrow">BUSGUARD / ARRIVAL</p><h2 id="arrivalTitle">Your bus is here</h2><p id="arrivalMessage"></p><button id="dismissArrival" type="button">Got it</button></div></aside>
+  <div class="sr-only" id="arrivalAnnouncement" role="status" aria-live="assertive" aria-atomic="true"></div>
+  <div class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div class="sr-only" id="journeyAnnouncement" role="status" aria-live="polite" aria-atomic="true"></div>
+  <noscript><div class="noscript">Please enable JavaScript to connect to the bus and request assistance.</div></noscript>
+</body>
+</html>

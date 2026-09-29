@@ -1,0 +1,6 @@
+-r requirements-base.txt
+-r requirements-phrases.txt
+# Historical MediaPipe adapters can be installed separately with requirements-posture.txt.
+ultralytics==8.4.143
+lap==0.5.12
+clip @ git+https://github.com/ultralytics/CLIP.git@a13192f8cb767260d7dfd98c843b0716593169e7

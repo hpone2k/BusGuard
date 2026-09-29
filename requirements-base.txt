@@ -1,0 +1,8 @@
+# Tested on Windows / Python 3.12. Install a matching PyTorch build separately for GPU use.
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+Pillow==12.3.0
+numpy==2.5.3
+opencv-python==5.0.0.93
+scipy==1.18.1
+imageio-ffmpeg==0.6.0

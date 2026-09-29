@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#d6ebcc"><title>BusGuard · Set up phone voice</title>
+  <link rel="stylesheet" href="/static/passenger/phone-setup.css?v=1">
+  <script type="module" src="/static/passenger/phone-setup.js?v=1"></script>
+</head>
+<body>
+  <a class="skip" href="#steps">Skip to setup steps</a>
+  <div class="shell">
+    <header><a class="brand" href="/" aria-label="BusGuard passenger home"><span class="brand-icon" aria-hidden="true">B</span><span>BusGuard<small>PASSENGER EXPERIENCE</small></span></a><a class="back" href="/">Passenger app <span aria-hidden="true">↗</span></a></header>
+    <main>
+      <div class="intro"><p class="eyebrow">ONE-TIME PHONE SETUP</p><h1>A clearer journey.<br><em>Just say hello.</em></h1><p class="lead">Connect your phone to the same Wi-Fi as the bus computer, then set up the secure connection for voice.</p><p class="status" id="setupStatus" role="status">Checking the local setup…</p></div>
+      <ol class="steps" id="steps">
+        <li class="step"><span class="number" aria-hidden="true">01</span><div class="step-body"><h2>Get the demo certificate</h2><p>This public certificate lets your phone recognise the bus computer. Download it only for your own demo device.</p><a class="button" id="downloadCertificate" href="/setup/certificate.cer" hidden>Download public certificate <span aria-hidden="true">↓</span></a><div class="fingerprint" id="fingerprintPanel" hidden><span>SHA-256 · compare with this page on the host computer</span><code id="certificateFingerprint"></code></div><p class="muted">The API key stays on the computer. You do not enter it on your phone.</p></div></li>
+        <li class="step"><span class="number" aria-hidden="true">02</span><div class="step-body"><h2>Choose to trust it on your phone</h2><p>Check the fingerprint with the host computer first. Installation and trust are choices you make in your phone’s settings.</p>
+          <details><summary>iPhone or iPad <span aria-hidden="true">+</span></summary><ol><li>Open the downloaded certificate and install its profile in Settings. Look for <strong>Profile Downloaded</strong>, or <strong>General → VPN &amp; Device Management</strong>.</li><li>Go to <strong>Settings → General → About → Certificate Trust Settings</strong>.</li><li>Enable full trust for <strong>BusGuard temporary demo CA</strong>.</li></ol><a class="reference" href="https://support.apple.com/en-ie/102390" target="_blank" rel="noopener noreferrer">Apple’s certificate trust instructions ↗</a></details>
+          <details><summary>Android <span aria-hidden="true">+</span></summary><ol><li>In Settings, search for <strong>Install a certificate</strong> or <strong>Encryption &amp; credentials</strong>. Menu names vary by phone.</li><li>Choose the <strong>CA certificate</strong> option and select the downloaded <strong>BusGuard-demo-root.cer</strong>.</li><li>Confirm installation only after matching the fingerprint. Your screen lock may be required; managed phones can restrict this.</li></ol><a class="reference" href="https://support.google.com/pixelphone/answer/2844832?hl=en" target="_blank" rel="noopener noreferrer">Google’s certificate settings reference ↗</a></details>
+          <p class="muted">Remove <strong>BusGuard temporary demo CA</strong> from your phone after the demonstration.</p></div></li>
+        <li class="step"><span class="number" aria-hidden="true">03</span><div class="step-body"><h2>Open voice and say hello</h2><p>Use Safari on iPhone or Chrome on Android. Open the secure passenger app, tap <strong>Start listening</strong>, and allow microphone access. Then say <strong>“Hey BusGuard”.</strong></p><a class="button" id="openVoice" hidden>Open secure passenger app <span aria-hidden="true">↗</span></a><p class="address" id="voiceAddress"></p><p class="muted">The page should open without a certificate warning. If it shows one, return to the setup steps or ask the operator to check the address and certificate.</p></div></li>
+      </ol>
+      <aside class="note"><strong>Keep the app open while you travel.</strong><p>Voice and arrival alerts work while the page is active. While listening is enabled, microphone audio goes to OpenAI, including while waiting for “Hey BusGuard”. Text controls remain available.</p></aside>
+      <p class="local-note" id="localNote" hidden>You opened this page using localhost. On your phone, use the bus computer’s Wi-Fi address instead.</p>
+      <noscript><p class="local-note">Enable JavaScript to check the certificate and display the secure passenger link. Your operator can help you open the app.</p></noscript>
+    </main>
+    <footer><span>BusGuard · Local demonstration</span><a href="/">Return to passenger app</a></footer>
+  </div>
+</body>
+</html>

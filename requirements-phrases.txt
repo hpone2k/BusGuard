@@ -1,0 +1,6 @@
+# Minimal, tested detailed-phrase runtime. Existing PyTorch/CUDA is preserved.
+# Included by requirements.txt; no quantization or remote Python model code.
+transformers==4.57.1
+huggingface-hub==0.36.2
+tokenizers==0.22.2
+safetensors==0.8.0

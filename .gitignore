@@ -1,0 +1,34 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+data/
+models/
+Ultralytics/
+*.pt
+mobileclip*.ts
+*.log
+validation/
+node_modules/
+.npm-cache/
+
+# Local credentials, device configuration and runtime journals
+.env
+.env.*
+*.env
+!*.env.example
+firmware/**/config.h
+*.pem
+*.key
+*.cer
+*.crt
+*.pfx
+*.p12
+
+# Local recordings, release archives and machine-specific benchmarks
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.zip
+benchmark*.json

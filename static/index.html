@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="theme-color" content="#d6ebcc">
+  <title>BusTech — Vision console</title>
+  <link rel="stylesheet" href="/static/style.css?v=live-camera-3"><link rel="stylesheet" href="/static/rfid.css?v=assistance-15-20"><script type="module" src="/static/app.js?v=live-camera-3-standing-five-1"></script>
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="16" rx="4"/><path d="M4 12h16M8 19v2m8-2v2M8 7h8M8 15h.01M16 15h.01"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 6h12v12H4zM16 10l5-3v10l-5-3M8 3h4"/></symbol>
+    <symbol id="i-webcam" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="3"/><circle cx="12" cy="10.5" r="3"/><path d="M8 21h8m-4-4v4"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1"/><path d="m3 17 5-5 4 4 4-6 5 7"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m10 8 6 4-6 4z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 19 19 5M7 5h12v12"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h6m4 0h6M4 17h10m4 0h2"/><circle cx="12" cy="7" r="2"/><circle cx="16" cy="17" r="2"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6zM9 12l2 2 4-4"/></symbol>
+  </defs></svg>
+  <header class="topbar"><a class="brand" href="/" aria-label="BusTech Vision console"><span class="brand-symbol"><svg><use href="#i-bus"/></svg></span><span>BusTech<span class="brand-divider">/</span><span class="brand-light">Vision</span></span></a><div class="topbar-right"><span id="modelState" class="system-state" role="status"><i></i> Connecting</span><a class="viewer-link" href="http://localhost:4480/" target="_blank" rel="noopener">Open bus experience <svg><use href="#i-arrow"/></svg></a></div></header>
+  <main>
+    <section class="page-heading"><div><p class="eyebrow">AUTONOMOUS MOBILITY · PERCEPTION WORKSPACE</p><h1>Every passenger, considered<span>.</span></h1><p class="intro">Two perspectives. One connected view of passenger assistance.</p></div><div class="workspace-id"><span class="small-label">BUSTECH / SGBTGC 2026</span><span><i></i> LOCAL PROCESSING</span></div></section>
+    <a class="scenario-shortcut" href="#scenarioHeading">Stop / go scenario <span aria-hidden="true">↓</span></a>
+    <div id="notice" class="notice" role="alert" hidden></div><div id="demoNotice" class="notice" hidden>Demo detector is active. It finds coloured regions; semantic passenger recognition is unavailable.</div>
+    <div class="connected-heading"><span class="mini-badge">CCTV + RFID + passenger requests</span><a id="passengerLink" class="button secondary" href="/passenger/" target="_blank" rel="noopener">Open passenger app ↗</a></div>
+    <section class="source-grid" id="sources" aria-label="Two independent detection sources"></section>
+    <section class="intelligence-grid" aria-label="Detection data and decision calculation">
+      <div class="observations panel"><div class="panel-heading"><div><p class="eyebrow">01 / OBSERVATIONS</p><h2>A clearer count over time.</h2></div><span class="mini-badge">1,000 ms window</span></div>
+        <div class="role-switch" role="group" aria-label="Count source"><button data-count-role="inside" aria-pressed="true">Inside cabin</button><button data-count-role="outside" aria-pressed="false">Outside boarding</button></div>
+        <div class="count-summary"><div><span class="small-label">CONFIRMED OBJECT COUNT</span><strong id="stableCount">—</strong></div><div class="count-summary-detail"><span id="countState" class="state-pill">Awaiting input</span><span id="voteSupport">Waiting for observations</span><span id="rawCount">Observed now —</span></div></div>
+        <div class="table-wrap"><table><thead><tr><th scope="col">Detected type</th><th scope="col">Stable</th><th scope="col">Observed</th><th scope="col">Vote support</th></tr></thead><tbody id="countRows"><tr><td colspan="4" class="empty-cell">Connect a source to see passenger observations.</td></tr></tbody></table></div>
+        <p id="countHint" class="section-footnote">Counts settle using elapsed-time voting. Vote support measures agreement, not accuracy. Object categories may overlap; this total is not a unique passenger count.</p>
+      </div>
+      <aside class="decision panel" aria-labelledby="decisionHeading"><div class="panel-heading"><div><p class="eyebrow">02 / DECISION SUPPORT</p><h2 id="decisionHeading">Readiness & assistance</h2></div><svg class="heading-icon"><use href="#i-shield"/></svg></div>
+        <div id="decisionStatus" class="decision-status" data-state="hold"><span class="decision-dot"></span><div><strong id="decisionTitle">Awaiting cabin observations</strong><p id="decisionMessage">Connect the inside source to evaluate passenger posture.</p></div></div>
+        <div class="posture-grid standing-only"><div><span class="small-label">STANDING DETECTED</span><strong id="standingCount">—</strong></div><p>Departure requires 5 continuous seconds of fresh observations with no standing detected after the doors close.</p></div>
+        <div class="evidence"><span class="small-label">INPUT EVIDENCE</span><div><span>Inside source</span><strong id="insideEvidence">Disconnected</strong></div><div><span>Outside source</span><strong id="outsideEvidence">Disconnected</strong></div><div><span>Confirmation</span><strong id="confirmation">Waiting for fresh posture observations</strong></div></div>
+        <p class="section-footnote">Readiness comes from the shared controller, including simulated door and ramp state. Standing detection starts only after doors close. Images and recordings cannot clear live departure readiness.</p>
+        <div class="event-heading"><span class="small-label">RECENT ASSISTANCE REQUESTS</span><span class="event-counter" id="eventCount">0</span></div><ol id="events" class="events"><li class="empty-event">Assistance requests will appear here.</li></ol>
+      </aside>
+    </section>
+    <section id="operations" class="panel operations" aria-label="Shared bus controller and local network"></section>
+    <section class="capability-bar"><svg><use href="#i-sliders"/></svg><p><strong>Set the target, then tune the evidence.</strong> Use object categories for cabin occupancy, or detailed phrases for specific visual targets. Phrase matches can overlap and depend on visibility, lighting and wording.</p><span id="backendDetail">Checking detector</span></section>
+  </main>
+  <footer><span>BusTech <span class="muted">Passenger intelligence</span></span><span>Designed for a more inclusive journey.</span><span class="muted">PROTOTYPE · LOCAL INFERENCE</span></footer>
+</body>
+</html>
