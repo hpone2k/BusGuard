@@ -1,0 +1,6 @@
+# Keep document bytes intact on Windows, including text-encoded PDF streams.
+*.pdf binary
+*.pptx binary
+*.docx binary
+# The submission manifest hashes the exact distributed document and text bytes.
+submission/** -text

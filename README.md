@@ -14,6 +14,7 @@ A local-network prototype for the **SGBTGC 2026 / BusTech** accessibility projec
 | Integrate another device or application | [API reference](docs/API_REFERENCE.md) |
 | Find the relevant code | [Project file map](docs/PROJECT_FILE_MAP.md) |
 | Prepare a repeatable demonstration | [Demonstration guide](docs/DEMONSTRATION_GUIDE.md) |
+| Review competition report, poster, slides and submission requirements | [Submission draft package](submission/START_HERE.md) |
 | Configure ESP32 pins and Arduino firmware | [RFID firmware guide](firmware/BusGuardRFID/README.md) |
 | Set up OpenAI voice and phone HTTPS | [Voice setup](docs/VOICE_SETUP.md) |
 | Review dependency/model licensing | [Third-party notices](THIRD_PARTY_NOTICES.md) |

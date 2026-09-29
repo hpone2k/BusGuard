@@ -1,0 +1,81 @@
+{
+  "status": "DRAFT - metadata and evidence pending",
+  "date": "2026-09-29",
+  "files": [
+    {
+      "path": "content/evidence-register.md",
+      "bytes": 11099,
+      "sha256": "7897cae3a6abbdca54741971e15588d8ada3e8730787eee2c03b2af9e32fde77"
+    },
+    {
+      "path": "planning/ACTUAL_BUDGET_REGISTER.md",
+      "bytes": 2857,
+      "sha256": "0b4496085bcc0d7cb0176c31092c94400cb5171f6194f70560b0951458f15022"
+    },
+    {
+      "path": "planning/EVIDENCE_COLLECTION_FORMS.md",
+      "bytes": 11076,
+      "sha256": "25d196554eb63364571816b8a7dcc413fbff1e273fd6d27b0fd133502e29ac03"
+    },
+    {
+      "path": "planning/TEAM_CONTRIBUTION_REGISTER.md",
+      "bytes": 2140,
+      "sha256": "3c16bb0f51ecb6093121c89d89efe93690891015c389e5a66ded047a52864762"
+    },
+    {
+      "path": "poster/BusGuard_Poster_DRAFT.pptx",
+      "bytes": 1292556,
+      "sha256": "c52c68d2e7c19125222bfb5051f4d459b2d8d2ba5760c157a59ea433e6b88031"
+    },
+    {
+      "path": "poster/BusGuard_Poster_DRAFT_A0_Provisional.pdf",
+      "bytes": 20343854,
+      "sha256": "93094e8203f1656fa9d0279ff7d0c5396135a3525b4f4acaccf645aa30b70ec2"
+    },
+    {
+      "path": "poster/BusGuard_Poster_DRAFT_Template_Size.pdf",
+      "bytes": 20343832,
+      "sha256": "664c7a1622864861948391257c6d00f3b7f4a60961e571f19e918b52d957983c"
+    },
+    {
+      "path": "poster/PRINT_AND_REVIEW_NOTES.md",
+      "bytes": 3075,
+      "sha256": "dbc0d47539b7030995caf2368e637d91e923fed2c54e9f8ac35acfd3d0a8bcee"
+    },
+    {
+      "path": "presentation/BusGuard_SGBTGC_2026_DRAFT.pdf",
+      "bytes": 1048805,
+      "sha256": "8a1cf29bb738e9e66d467725bf8c3fc4d1f119bbad239472e73ecb1275ca621f"
+    },
+    {
+      "path": "presentation/BusGuard_SGBTGC_2026_DRAFT.pptx",
+      "bytes": 191954,
+      "sha256": "7ea65587817c0576ba35eb7f9b7283f121a71074c82659c4a029e3b34060e5e7"
+    },
+    {
+      "path": "presentation/Supporting_materials_DRAFT.md",
+      "bytes": 25672,
+      "sha256": "f056dc56af0573fa5ca2566a5f76c4eee929e12ae8caecc326d29e59d11ce981"
+    },
+    {
+      "path": "report/IHL - TEAM - BusGuard Report DRAFT.docx",
+      "bytes": 153181,
+      "sha256": "5a6aa7c8229c439d42eb2b1d7f242ea3d9d5c30a723577efeb7a4c212bec5b7b"
+    },
+    {
+      "path": "report/IHL - TEAM - BusGuard Report DRAFT.pdf",
+      "bytes": 290506,
+      "sha256": "9e3099133cc8c427bcf5ecc0d5d22df01164d7c39a67fc838f0b607ec5ff7bd2"
+    },
+    {
+      "path": "START_HERE.md",
+      "bytes": 5340,
+      "sha256": "19bd3cb9dd01c63d701d4d189b057b1bbdda6ac552f1320b36683c2f6dd715ec"
+    },
+    {
+      "path": "SUBMISSION_CHECKLIST.md",
+      "bytes": 8791,
+      "sha256": "e338c3df877288140d355272a0c16b89032dcb7200cfe6d5220e8c01cb333b16"
+    }
+  ]
+}
